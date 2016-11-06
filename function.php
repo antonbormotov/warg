@@ -29,6 +29,7 @@ function get_measurements()
     );
     $memory = $used_memory * 100 / $total_memory;
 
+    # @TODO Get hdd i/o.
     # get hdd info
     $hdd = '0/0';
 

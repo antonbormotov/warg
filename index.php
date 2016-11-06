@@ -5,7 +5,7 @@ $config = require_once 'config.php';
 $pdo = db_connect($config);
 
 $results = get_data($pdo);
-
+// @TODO Add required output.
 echo '<table>';
 echo '<tr>';
 echo '<td>Time</td>';
