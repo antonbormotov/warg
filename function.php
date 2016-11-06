@@ -16,7 +16,7 @@ function db_connect($config)
 function get_measurements()
 {
     # get cpu info
-    $cpu = (int)shell_exec(
+    $cpu = 100 * (int)shell_exec(
         "grep 'cpu' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}'"
     );
 
@@ -27,14 +27,14 @@ function get_measurements()
     $used_memory = (int)shell_exec(
         "vmstat -s -S m | awk 'FNR==2 {print $1}'"
     );
-    $memory = (int) ($used_memory * 100 / $total_memory);
+    $memory = $used_memory * 100 / $total_memory;
 
     # get hdd info
     $hdd = '0/0';
 
     return [
-        'cpu' => $cpu,
-        'memory' => $memory,
+        'cpu' => (int)$cpu,
+        'memory' => (int)$memory,
         'hdd' => $hdd
     ];
 }
