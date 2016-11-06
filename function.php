@@ -39,9 +39,14 @@ function get_measurements()
     ];
 }
 
-function render_data()
+
+function get_data(PDO $pdo)
 {
-    return;
+    $stmt = $pdo->prepare(
+        "SELECT time, cpu, memory, hdd FROM measurements AS m, time_slots as t WHERE stats_id = m.id"
+    );
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function save($cpu, $memory, $disk, PDO $pdo)
