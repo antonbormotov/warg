@@ -5,30 +5,29 @@ $config = require_once 'config.php';
 $pdo = db_connect($config);
 
 $results = get_data($pdo);
+
 // @TODO Add required output.
-echo '<table>';
-echo '<tr>';
-echo '<td>Time</td>';
-echo '<td>Cpu, %</td>';
-echo '<td>Used memory, %</td>';
-echo '<td>Hdd, %</td>';
-echo '</tr>';
+$output = '';
+$raw_time = '';
+$raw_cpu = '';
+$raw_mem = '';
+$raw_hdd = '';
+
+$output .= '<table>';
+$output .= '<tr><td colspan=' . count($results) . '>Load by time</td></tr>';
 
 foreach ($results as $result) {
-    echo '<tr>';
-    echo '<td>';
-    echo $result['time'] . '|';
-    echo '</td>';
-    echo '<td>';
-    echo $result['cpu'] . '|';
-    echo '</td>';
-    echo '<td>';
-    echo $result['memory'] . '|';
-    echo '</td>';
-    echo '<td>';
-    echo $result['hdd'] . '|';
-    echo '</td>';
-    echo '</tr>';
+    $raw_time .= '<td>' . $result['time'] . '</td>';
+    $raw_cpu .= '<td>' . $result['cpu'] . '</td>';
+    $raw_mem .= '<td>' . $result['mem'] . '</td>';
+    $raw_hdd .= '<td>' . $result['hdd'] . '</td>';
 }
 
-echo '<table>';
+$output .= '<tr>' . $raw_time . '</tr>';
+$output .= '<tr>' . $raw_cpu . '</tr>';
+$output .= '<tr>' . $raw_mem . '</tr>';
+$output .= '<tr>' . $raw_hdd . '</tr>';
+
+$output .='</table>';
+
+echo $output;
