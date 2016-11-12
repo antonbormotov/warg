@@ -1,8 +1,13 @@
 <?php /*use iprice\frontend\Util;*/ ?>
 
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" xml:lang="en" lang="en">
 <head>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <table>
