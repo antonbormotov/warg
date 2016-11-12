@@ -1,30 +1,13 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
 require_once('function.php');
 
 $results = get_data();
 
-// @TODO Add required output.
-$output = '';
-$raw_time = '';
-$raw_cpu = '';
-$raw_mem = '';
-$raw_hdd = '';
+use Philo\Blade\Blade;
 
-$output .= '<table>';
-$output .= '<tr><td colspan=' . count($results) . '>Load by time</td></tr>';
+$views = __DIR__ . '/views';
+$cache = __DIR__ . '/cache';
 
-foreach ($results as $result) {
-    $raw_time .= '<td>' . $result['time'] . '</td>';
-    $raw_cpu .= '<td>' . $result['cpu'] . '</td>';
-    $raw_mem .= '<td>' . $result['mem'] . '</td>';
-    $raw_hdd .= '<td>' . $result['hdd'] . '</td>';
-}
-
-$output .= '<tr>' . $raw_time . '</tr>';
-$output .= '<tr>' . $raw_cpu . '</tr>';
-$output .= '<tr>' . $raw_mem . '</tr>';
-$output .= '<tr>' . $raw_hdd . '</tr>';
-
-$output .='</table>';
-
-echo $output;
+$blade = new Blade($views, $cache);
+echo $blade->view()->make('main',['results' => $results])->render();

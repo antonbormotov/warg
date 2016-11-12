@@ -12,6 +12,34 @@
         </td>
     </tr>
 
+    <tr>
+        @foreach ($results as $result)
+        <td>
+            {{ $result['time'] }}
+        </td>
+        @endforeach
+    </tr>
+    <tr>
+        @foreach ($results as $result)
+        <td>
+            {{ $result['cpu'] }}
+        </td>
+        @endforeach
+    </tr>
+    <tr>
+        @foreach ($results as $result)
+        <td>
+            {{ $result['memory'] }}
+        </td>
+        @endforeach
+    </tr>
+    <tr>
+        @foreach ($results as $result)
+        <td>
+            {{ $result['hdd'] }}
+        </td>
+        @endforeach
+    </tr>
     </table>
 </body>
 </html>
