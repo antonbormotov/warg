@@ -1,34 +1,13 @@
 <?php
+require_once __DIR__ . '/vendor/autoload.php';
 require_once('function.php');
-$config = require_once 'config.php';
 
-$pdo = db_connect($config);
+$results = get_data();
 
-$results = get_data($pdo);
-// @TODO Add required output.
-echo '<table>';
-echo '<tr>';
-echo '<td>Time</td>';
-echo '<td>Cpu, %</td>';
-echo '<td>Used memory, %</td>';
-echo '<td>Hdd, %</td>';
-echo '</tr>';
+use Philo\Blade\Blade;
 
-foreach ($results as $result) {
-    echo '<tr>';
-    echo '<td>';
-    echo $result['time'] . '|';
-    echo '</td>';
-    echo '<td>';
-    echo $result['cpu'] . '|';
-    echo '</td>';
-    echo '<td>';
-    echo $result['memory'] . '|';
-    echo '</td>';
-    echo '<td>';
-    echo $result['hdd'] . '|';
-    echo '</td>';
-    echo '</tr>';
-}
+$views = __DIR__ . '/views';
+$cache = __DIR__ . '/cache';
 
-echo '<table>';
+$blade = new Blade($views, $cache);
+echo $blade->view()->make('main',['results' => $results])->render();
