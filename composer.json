@@ -1,0 +1,7 @@
+{
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "philo/laravel-blade": "3.*"
+    }
+}
