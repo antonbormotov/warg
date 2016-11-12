@@ -13,12 +13,18 @@
 <body>
     <table>
     <tr>
+        <td rowspan="2">
+            Monitoring items
+        </td>
         <td colspan="{{{ count($results) }}}">
             Load by time
         </td>
     </tr>
 
     <tr>
+        <td>
+            CPU Load (%)
+        </td>
         @foreach ($results as $result)
         <td>
             {{ $result['time'] }}
@@ -26,6 +32,9 @@
         @endforeach
     </tr>
     <tr>
+        <td>
+            Memory Load (%)
+        </td>
         @foreach ($results as $result)
         <td>
             {{ $result['cpu'] }}
@@ -33,6 +42,9 @@
         @endforeach
     </tr>
     <tr>
+        <td>
+            HDD Load (MB/s)
+        </td>
         @foreach ($results as $result)
         <td>
             {{ $result['memory'] }}
