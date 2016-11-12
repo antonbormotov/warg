@@ -22,9 +22,6 @@
     </tr>
 
     <tr>
-        <td>
-            CPU Load (%)
-        </td>
         @foreach ($results as $result)
         <td>
             {{ $result['time'] }}
@@ -33,7 +30,7 @@
     </tr>
     <tr>
         <td>
-            Memory Load (%)
+            CPU Load (%)
         </td>
         @foreach ($results as $result)
         <td>
@@ -43,7 +40,7 @@
     </tr>
     <tr>
         <td>
-            HDD Load (MB/s)
+            Memory Load (%)
         </td>
         @foreach ($results as $result)
         <td>
@@ -52,6 +49,9 @@
         @endforeach
     </tr>
     <tr>
+        <td>
+            HDD Load (MB/s)
+        </td>
         @foreach ($results as $result)
         <td>
             {{ $result['hdd'] }}
