@@ -1,4 +1,10 @@
 <?php
+function get_config()
+{
+    $config = require_once 'config.php';
+    return $config;
+}
+
 function db_connect($config)
 {
     $dsn = 'mysql:dbname='. $config['db']['name'] .';host='. $config['db']['host'];
@@ -41,8 +47,9 @@ function get_measurements()
 }
 
 
-function get_data(PDO $pdo)
+function get_data()
 {
+    $pdo = db_connect(get_config());
     $stmt = $pdo->prepare(
         "SELECT time, cpu, memory, hdd FROM measurements AS m, time_slots as t WHERE stats_id = m.id"
     );
@@ -50,8 +57,9 @@ function get_data(PDO $pdo)
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function save($cpu, $memory, $disk, PDO $pdo)
+function save_data($cpu, $memory, $disk)
 {
+    $pdo = db_connect(get_config());
     $date = new DateTime;
     $time = $date->format("H:i");
     $stmt = $pdo->prepare("INSERT INTO measurements (cpu, memory, hdd) VALUES (:cpu, :memory, :hdd)");

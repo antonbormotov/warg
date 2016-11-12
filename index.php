@@ -1,10 +1,7 @@
 <?php
 require_once('function.php');
-$config = require_once 'config.php';
 
-$pdo = db_connect($config);
-
-$results = get_data($pdo);
+$results = get_data();
 
 // @TODO Add required output.
 $output = '';
