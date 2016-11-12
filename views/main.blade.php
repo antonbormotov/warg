@@ -4,8 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" xml:lang="en" lang="en">
 <head>
     <style>
-        body {
+        td {
             text-align: center;
+            border: solid 1px #444;
         }
     </style>
 </head>

@@ -51,7 +51,7 @@ function get_data()
 {
     $pdo = db_connect(get_config());
     $stmt = $pdo->prepare(
-        "SELECT time, cpu, memory, hdd FROM measurements AS m, time_slots as t WHERE stats_id = m.id"
+        "SELECT time, cpu, memory, hdd FROM measurements AS m, time_slots as t WHERE stats_id = m.id LIMIT BY 10"
     );
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
