@@ -35,9 +35,21 @@ function get_measurements()
     );
     $memory = $used_memory * 100 / $total_memory;
 
-    # @TODO Get hdd i/o.
     # get hdd info
-    $hdd = '0/0';
+    if (is_sysstat_installed()) {
+        $hdd_device_name = trim(shell_exec(
+            "lsblk -d -n --output=NAME -l | awk 'FNR==1 {print $1}'"
+        ));
+        $hdd_reads = trim(shell_exec(
+            "iostat -m -d -x $hdd_device_name | awk 'FNR==4 {print $6}'"
+        ));
+        $hdd_writes = trim(shell_exec(
+            "iostat -m -d -x $hdd_device_name | awk 'FNR==4 {print $7}'"
+        ));
+        $hdd = $hdd_reads . '/' . $hdd_writes;
+    } else {
+        $hdd = 'N/N';
+    }
 
     return [
         'cpu' => (int)$cpu,
@@ -46,12 +58,11 @@ function get_measurements()
     ];
 }
 
-
 function get_data()
 {
     $pdo = db_connect(get_config());
     $stmt = $pdo->prepare(
-        "SELECT time, cpu, memory, hdd FROM measurements AS m, time_slots as t WHERE stats_id = m.id LIMIT 10"
+        "SELECT time, cpu, memory, hdd FROM measurements AS m, time_slots as t WHERE stats_id = m.id LIMIT 20"
     );
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -72,4 +83,11 @@ function save_data($cpu, $memory, $disk)
     $stmt->bindParam(":time", $time);
     $stmt->bindParam(":stats_id", $id);
     $stmt->execute();
+}
+
+function is_sysstat_installed() {
+    if ((int)shell_exec("command iostat >>/dev/null 2>&1 ; echo $?") !== 0) {
+        return false;
+    }
+    return true;
 }
